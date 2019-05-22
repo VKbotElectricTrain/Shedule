@@ -8,6 +8,7 @@ import json
 from time import sleep
 import codecs
 from names import STATION_NAMES
+from token123 import Token_names123
 
 ###################################################################################################
 ###################################################################################################
@@ -16,7 +17,7 @@ from names import STATION_NAMES
 
 
 API_KEY = "5e3b9a89-f8cd-4ad2-8d12-b1c50a6a75aa" # ключ к API яндекс.расписаний
-VK_TOKEN = '820defafb2377e04b88eeeb9a2fa504b15c259173d0e96dc0b20c7d442c6e5e8cbe1d9876e9ac3505594e' # токен для доступа к функциям VK API
+VK_TOKEN = Token_names123 # токен для доступа к функциям VK API
 
 
 
@@ -92,8 +93,10 @@ def forming_schedule(from_depature,destination_depature,date):
     count = 0
     ### parsing raw respond in order to pass fucking exam
     for i in raw_respond['segments']:
-        current_time = datetime.datetime.now().hour, datetime.datetime.now().minute
-        if int(i['departure'][-14:-6][:2]) > int(current_time[0]) and int(i['departure'][-14:-6][3:5]) > int(current_time[1]) and count <= 5:
+        current_time = datetime.datetime.now().hour*60+datetime.datetime.now().minute
+        hour_of_departure = int(i['departure'][-14:-6][:2])
+        minute_of_departure = int(i['departure'][-14:-6][3:5])
+        if (hour_of_departure*60 + minute_of_departure)>current_time and count <= 4:
             count += 1
             arrival_time.append(i['arrival'][11:16])
             departure_time.append(i['departure'][11:16])

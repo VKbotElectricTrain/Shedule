@@ -8,7 +8,8 @@ import json
 from time import sleep
 import codecs
 from names import STATION_NAMES
-from token123 import Token_names123
+import VK_Api
+import Ya_Api
 
 ###################################################################################################
 ###################################################################################################
@@ -16,8 +17,8 @@ from token123 import Token_names123
 
 
 
-API_KEY = "5e3b9a89-f8cd-4ad2-8d12-b1c50a6a75aa" # ключ к API яндекс.расписаний
-VK_TOKEN = Token_names123 # токен для доступа к функциям VK API
+API_KEY = Ya_Api.token() # ключ к API яндекс.расписаний
+VK_TOKEN = VK_Api.token() # токен для доступа к функциям VK API
 
 
 
@@ -111,6 +112,8 @@ def forming_schedule(from_depature,destination_depature,date):
 ###################################################################################################
 def suggester(inputed_name, id_of_user):
     number_of_rec=0
+    inputed_name = inputed_name.title()
+    #print(inputed_name)
     if inputed_name not in STATION_NAMES:
         suggested_stations=[]
         for station_name in STATION_NAMES:

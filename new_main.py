@@ -157,6 +157,16 @@ def send_message(text, id_of_user):
 
 
 
+def send_message1(text, id_of_user,attachment1):
+    vk.messages.send( #Отправляем сообщение
+        user_id=id_of_user,
+        message=text,
+        random_id = random.randint(1000000000,100000000000),attachment = attachment1
+        )
+photo1 = 'photo-181127274_456239019'
+
+
+
 ###################################################################################################
 ###################################################################################################
 ###################################################################################################
@@ -197,7 +207,7 @@ for event in longpoll.listen():
                 try:
                     departures, arrivals, thread = forming_schedule(station_0, station_1, Time_Maker())
                 except:
-                    send_message(u'Произошла неизвестная ошибка. Требуется перезагрузка программы.', event.user_id)
+                    send_message(u'Ой-ой. Еще разок', event.user_id)
                     continue
                 if len(arrivals) == 0:
                     send_message('\tСоставление расписания невозможно: прямого маршрута не существует.\n Введите станции заново.', event.user_id)
@@ -216,6 +226,9 @@ for event in longpoll.listen():
                         #send_message(str(number_of_respond) + ':    ' + str(departures[i]) + '      ' + str(arrivals[i]) + '     ' + str(thread[i]) + '        ' + str(Time_To_Departure(departures[i])), event.user_id)
                         #send_message( + '      ' +  + '     ' +  + '        ' +
                         number_of_respond += 1
+
+
+                    send_message1(u'Счастливого пути!',event.user_id,photo1)
 
                     iterator = not iterator
             else:
